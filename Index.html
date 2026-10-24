@@ -608,81 +608,78 @@
         <span id="toastMsg" class="text-xs font-medium">ប្រតិបត្តិការជោគជ័យ!</span>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC (ROBUST LOCALSTORAGE STORAGE) -->
     <script>
-        // INDEXEDDB DATABASE SETUP
-        const DB_NAME = 'BoxCeStoreDB';
-        const DB_VERSION = 1;
-        let db = null;
+        const STORAGE_KEY_APPS = 'boxce_applications_data_v1';
+        const STORAGE_KEY_SETTINGS = 'boxce_settings_data_v1';
 
-        function initDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                request.onupgradeneeded = (e) => {
-                    const database = e.target.result;
-                    if (!database.objectStoreNames.contains('applications')) {
-                        database.createObjectStore('applications', { keyPath: 'id' });
-                    }
-                    if (!database.objectStoreNames.contains('settings')) {
-                        database.createObjectStore('settings', { keyPath: 'key' });
-                    }
-                };
-                request.onsuccess = (e) => {
-                    db = e.target.result;
-                    resolve(db);
-                };
-                request.onerror = (e) => reject(e);
-            });
+        // LocalStorage Application Helpers
+        function getAllApplicationsFromDB() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY_APPS);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error("Error reading applications:", e);
+                return [];
+            }
         }
 
-        // IndexedDB Application Helpers
-        async function getAllApplicationsFromDB() {
-            return new Promise((resolve) => {
-                if (!db) return resolve([]);
-                const tx = db.transaction('applications', 'readonly');
-                const store = tx.objectStore('applications');
-                const req = store.getAll();
-                req.onsuccess = () => resolve(req.result || []);
-                req.onerror = () => resolve([]);
-            });
+        function saveApplicationToDB(appData) {
+            try {
+                const apps = getAllApplicationsFromDB();
+                const index = apps.findIndex(a => a.id === appData.id);
+                if (index >= 0) {
+                    apps[index] = appData;
+                } else {
+                    apps.unshift(apps.unshift ? appData : appData); // Add to top
+                    apps.push(appData); // Fallback push if needed, actually unshift:
+                }
+                // Proper unshift logic:
+                const updatedApps = [appData, ...apps.filter(a => a.id !== appData.id)];
+                localStorage.setItem(STORAGE_KEY_APPS, JSON.stringify(updatedApps));
+                return true;
+            } catch (e) {
+                console.error("Error saving application:", e);
+                return false;
+            }
         }
 
-        async function saveApplicationToDB(appData) {
-            return new Promise((resolve) => {
-                const tx = db.transaction('applications', 'readwrite');
-                const store = tx.objectStore('applications');
-                store.put(appData);
-                tx.oncomplete = () => resolve(true);
-            });
+        function deleteApplicationFromDB(id) {
+            try {
+                const apps = getAllApplicationsFromDB();
+                const filtered = apps.filter(a => a.id !== id);
+                localStorage.setItem(STORAGE_KEY_APPS, JSON.stringify(filtered));
+                return true;
+            } catch (e) {
+                console.error("Error deleting application:", e);
+                return false;
+            }
         }
 
-        async function deleteApplicationFromDB(id) {
-            return new Promise((resolve) => {
-                const tx = db.transaction('applications', 'readwrite');
-                const store = tx.objectStore('applications');
-                store.delete(id);
-                tx.oncomplete = () => resolve(true);
-            });
+        function saveSettingToDB(key, value) {
+            try {
+                let settings = {};
+                const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
+                if (data) settings = JSON.parse(data);
+                settings[key] = value;
+                localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+                return true;
+            } catch (e) {
+                console.error("Error saving setting:", e);
+                return false;
+            }
         }
 
-        async function saveSettingToDB(key, value) {
-            return new Promise((resolve) => {
-                const tx = db.transaction('settings', 'readwrite');
-                const store = tx.objectStore('settings');
-                store.put({ key, value });
-                tx.oncomplete = () => resolve(true);
-            });
-        }
-
-        async function getSettingFromDB(key) {
-            return new Promise((resolve) => {
-                if (!db) return resolve(null);
-                const tx = db.transaction('settings', 'readonly');
-                const store = tx.objectStore('settings');
-                const req = store.get(key);
-                req.onsuccess = () => resolve(req.result ? req.result.value : null);
-                req.onerror = () => resolve(null);
-            });
+        function getSettingFromDB(key) {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
+                if (!data) return null;
+                const settings = JSON.parse(data);
+                return settings[key] !== undefined ? settings[key] : null;
+            } catch (e) {
+                console.error("Error reading setting:", e);
+                return null;
+            }
         }
 
         // CANVAS ANIMATION (DOLLAR & DIAMONDS FALLING)
@@ -776,7 +773,7 @@
             document.getElementById('registerFormSection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        async function handleRegistrationSubmit(e) {
+        function handleRegistrationSubmit(e) {
             e.preventDefault();
 
             const motivationVal = document.getElementById('regMotivation').value;
@@ -804,7 +801,7 @@
                 adminNotes: ''
             };
 
-            await saveApplicationToDB(newApp);
+            saveApplicationToDB(newApp);
 
             document.getElementById('publicRegisterForm').reset();
             updateCharCounter();
@@ -829,7 +826,6 @@
             e.preventDefault();
             const pass = document.getElementById('adminPasswordInput').value;
 
-            // Password authenticated securely
             if (pass === 'Socheat992008@') {
                 document.getElementById('adminLoginView').classList.add('hidden');
                 document.getElementById('adminDashboardView').classList.remove('hidden');
@@ -862,15 +858,16 @@
             }
         }
 
-        async function renderAdminApplications() {
-            const apps = await getAllApplicationsFromDB();
+        function renderAdminApplications() {
+            const apps = getAllApplicationsFromDB();
             const search = document.getElementById('adminSearchInput').value.toLowerCase();
             const filterStatus = document.getElementById('adminStatusFilter').value;
 
             document.getElementById('appCountBadge').innerText = apps.length;
 
             const filtered = apps.filter(a => {
-                const matchSearch = a.nickname.toLowerCase().includes(search) || a.accountName.toLowerCase().includes(search);
+                const matchSearch = (a.nickname && a.nickname.toLowerCase().includes(search)) || 
+                                    (a.accountName && a.accountName.toLowerCase().includes(search));
                 const matchStatus = (filterStatus === 'ALL') || (a.status === filterStatus);
                 return matchSearch && matchStatus;
             });
@@ -929,36 +926,36 @@
             `).join('');
         }
 
-        async function updateAppStatus(id, newStatus) {
-            const apps = await getAllApplicationsFromDB();
+        function updateAppStatus(id, newStatus) {
+            const apps = getAllApplicationsFromDB();
             const app = apps.find(a => a.id === id);
             if (app) {
                 app.status = newStatus;
-                await saveApplicationToDB(app);
+                saveApplicationToDB(app);
                 showToast("បានប្តូរ Status រួចរាល់");
             }
         }
 
-        async function updateAdminNote(id, noteVal) {
-            const apps = await getAllApplicationsFromDB();
+        function updateAdminNote(id, noteVal) {
+            const apps = getAllApplicationsFromDB();
             const app = apps.find(a => a.id === id);
             if (app) {
                 app.adminNotes = noteVal;
-                await saveApplicationToDB(app);
+                saveApplicationToDB(app);
                 showToast("បានរក្សាទុក Admin Note");
             }
         }
 
-        async function deleteAppRecord(id) {
+        function deleteAppRecord(id) {
             if (confirm("តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?")) {
-                await deleteApplicationFromDB(id);
+                deleteApplicationFromDB(id);
                 renderAdminApplications();
                 showToast("បានលុបទិន្នន័យជោគជ័យ", "info");
             }
         }
 
-        async function exportApplicationsCSV() {
-            const apps = await getAllApplicationsFromDB();
+        function exportApplicationsCSV() {
+            const apps = getAllApplicationsFromDB();
             if (apps.length === 0) {
                 alert("គ្មានទិន្នន័យសម្រាប់ Export ទេ");
                 return;
@@ -978,15 +975,15 @@
             document.body.removeChild(link);
         }
 
-        // SAVE & LOAD LOGO IN INDEXEDDB
-        async function saveNewLogo() {
+        // SAVE & LOAD LOGO IN LOCALSTORAGE
+        function saveNewLogo() {
             const fileInput = document.getElementById('logoFileInput');
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 const reader = new FileReader();
-                reader.onload = async function(e) {
+                reader.onload = function(e) {
                     const base64Img = e.target.result;
-                    await saveSettingToDB('customLogo', base64Img);
+                    saveSettingToDB('customLogo', base64Img);
                     applyLogoToUI(base64Img);
                     showToast("បានរក្សាទុក Logo ថ្មីជោគជ័យ!");
                 };
@@ -1008,12 +1005,12 @@
             adminPlaceholder.classList.add('hidden');
         }
 
-        async function saveSiteSettings() {
+        function saveSiteSettings() {
             const tg = document.getElementById('settingTelegram').value;
             const fb = document.getElementById('settingFacebook').value;
 
-            await saveSettingToDB('telegramLink', tg);
-            await saveSettingToDB('facebookLink', fb);
+            saveSettingToDB('telegramLink', tg);
+            saveSettingToDB('facebookLink', fb);
 
             document.getElementById('telegramLinkBtn').href = tg;
             document.getElementById('facebookLinkBtn').href = fb;
@@ -1021,12 +1018,12 @@
             showToast("បានរក្សាទុកការកំណត់ Site រួចរាល់!");
         }
 
-        async function loadSiteSettings() {
-            const savedLogo = await getSettingFromDB('customLogo');
+        function loadSiteSettings() {
+            const savedLogo = getSettingFromDB('customLogo');
             if (savedLogo) applyLogoToUI(savedLogo);
 
-            const tg = await getSettingFromDB('telegramLink');
-            const fb = await getSettingFromDB('facebookLink');
+            const tg = getSettingFromDB('telegramLink');
+            const fb = getSettingFromDB('facebookLink');
 
             if (tg) {
                 document.getElementById('telegramLinkBtn').href = tg;
@@ -1052,10 +1049,9 @@
         }
 
         // INITIALIZATION
-        window.onload = async function() {
-            await initDB();
+        window.onload = function() {
             initFallingAnimation();
-            await loadSiteSettings();
+            loadSiteSettings();
         };
     </script>
 </body>
