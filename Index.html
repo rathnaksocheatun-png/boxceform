@@ -69,6 +69,7 @@
             overflow-x: hidden;
         }
 
+        /* Canvas Falling Money & Diamond Animation */
         #fallingCanvas {
             position: fixed;
             top: 0;
@@ -79,6 +80,7 @@
             z-index: 1;
         }
 
+        /* Luxury Neon Glow Styles */
         .text-glow-gradient {
             background: linear-gradient(135deg, #FF6B00 0%, #FFD700 25%, #00FF87 50%, #00F0FF 75%, #FF007F 100%);
             -webkit-background-clip: text;
@@ -122,6 +124,7 @@
             z-index: 0;
         }
 
+        /* Custom Scrollbars */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #05070f; }
         ::-webkit-scrollbar-thumb {
@@ -132,17 +135,21 @@
 </head>
 <body class="min-h-screen relative flex flex-col justify-between selection:bg-neonPink selection:text-white">
 
+    <!-- CANVAS ANIMATION (DOLLAR & DIAMONDS) -->
     <canvas id="fallingCanvas"></canvas>
 
+    <!-- Ambient Glowing Background Circles -->
     <div class="glow-orb w-96 h-96 bg-neonPink top-0 -left-20 animate-pulse"></div>
     <div class="glow-orb w-96 h-96 bg-neonBlue top-[35%] -right-20 animate-pulse" style="animation-delay: 1s;"></div>
     <div class="glow-orb w-80 h-80 bg-neonOrange bottom-[20%] left-[25%] animate-pulse" style="animation-delay: 2s;"></div>
     <div class="glow-orb w-96 h-96 bg-neonGreen bottom-0 -right-10 animate-pulse" style="animation-delay: 1.5s;"></div>
 
+    <!-- MAIN WRAPPER -->
     <div class="relative z-10 flex-grow flex flex-col items-center justify-start w-full max-w-xl mx-auto min-h-screen pb-24 shadow-2xl bg-[#070b16]/90 border-x border-slate-800/80">
 
         <!-- HEADER BAR -->
         <header class="w-full px-5 py-4 flex items-center justify-between border-b border-slate-800/80 sticky top-0 bg-[#070b16]/95 backdrop-blur-md z-40">
+            <!-- LOGO BRANDING -->
             <div class="flex items-center gap-3 cursor-pointer" onclick="goHome()">
                 <div class="relative group">
                     <div id="headerLogoContainer" class="w-12 h-12 rounded-xl bg-gradient-to-tr from-neonOrange via-neonPink to-neonBlue p-[2px] shadow-[0_0_15px_rgba(0,240,255,0.4)]">
@@ -169,6 +176,7 @@
                 </div>
             </div>
 
+            <!-- Header Menu / Admin Button -->
             <div class="flex items-center gap-2">
                 <button onclick="openAdminModal()" title="Admin Panel" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-neonOrange/20 border border-slate-700/80 hover:border-neonOrange text-xs font-bold text-slate-300 hover:text-neonOrange transition flex items-center gap-1.5 shadow-[0_0_10px_rgba(255,107,0,0.2)]">
                     <i class="fa-solid fa-user-shield text-neonOrange"></i>
@@ -306,6 +314,7 @@
 
                 <form id="publicRegisterForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-4">
 
+                    <!-- Field 1: Account Name -->
                     <div>
                         <label class="block text-xs font-bold text-slate-200 mb-1.5">
                             ឈ្មោះគណនី TikTok ឬ Facebook Page <span class="text-neonPink">*</span>
@@ -319,6 +328,7 @@
                         </div>
                     </div>
 
+                    <!-- Field 2: Social Media Link -->
                     <div>
                         <label class="block text-xs font-bold text-slate-200 mb-1.5">
                             Link គណនី TikTok ឬ Facebook Page <span class="text-neonPink">*</span>
@@ -332,6 +342,7 @@
                         </div>
                     </div>
 
+                    <!-- Field 3: Nickname -->
                     <div>
                         <label class="block text-xs font-bold text-slate-200 mb-1.5">
                             Nickname ឬឈ្មោះដែលគេស្គាល់អ្នក <span class="text-neonPink">*</span>
@@ -345,6 +356,7 @@
                         </div>
                     </div>
 
+                    <!-- Field 4: Promotional Video Link -->
                     <div>
                         <label class="block text-xs font-bold text-slate-200 mb-1.5">
                             Link វីដេអូដែលអ្នកបាន Post ផ្សព្វផ្សាយអំពី Box Ce <span class="text-neonPink">*</span>
@@ -358,6 +370,7 @@
                         </div>
                     </div>
 
+                    <!-- Field 5: Application Position (Radio Cards) -->
                     <div>
                         <label class="block text-xs font-bold text-slate-200 mb-2">
                             តើអ្នកចង់ចូលរួមក្នុងតួនាទីណា? <span class="text-neonPink">*</span>
@@ -384,20 +397,30 @@
                         </div>
                     </div>
 
+                    <!-- Field 6: Motivation and Commitment -->
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
                             <label class="block text-xs font-bold text-slate-200">
-                                មូលហេតុ <span class="text-neonPink">*</span>
+                                មូលហេតុ  <span class="text-neonPink">*</span>
                             </label>
-                            <span id="charCounter" class="text-[11px] text-slate-400 font-mono">0 / 50</span>
+                            <span id="charCounter" class="text-[11px] text-slate-400 font-mono">0 / 50 最小</span>
                         </div>
-                        <textarea id="regMotivation" required rows="4" oninput="updateCharCounter()" placeholder="សូមប្រាប់យើងអំពីមូលហេតុដែលអ្នកចង់ធ្វើជា Promoter ឬ BA..." 
+                        <textarea id="regMotivation" required rows="4" oninput="updateCharCounter()" placeholder="សូមប្រាប់យើងអំពីមូលហេតុដែលអ្នកចង់ធ្វើជា Promoter ឬ  BA របស់ BoxCe។ហើយតើសព្វថ្ងៃអ្នកកំពុងសិក្សាឬក៏បានបញ្ចប់ការសិក្សា?តើផលលំបាកនៃការប្រលោកក្នុងវិស័យContent Creatorរបស់អ្នកមានប៉ុន្មានចំណុច?អ្វីខ្លះ?ក្រៅពីជំនាញកាត់តវីដេអូgameតើអ្នកមានជំនាញអ្វីខ្លះទៀត..." 
                                   class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-eggYolk focus:ring-1 focus:ring-eggYolk transition"></textarea>
                         <p id="motivationErr" class="text-[11px] text-neonPink mt-1 hidden font-bold">
                             * សូមសរសេរយ៉ាងហោចណាស់ 50 តួអក្សរ។
                         </p>
                     </div>
 
+                    <!-- Terms Agreement -->
+                    <div class="flex items-start gap-2 pt-1">
+                        <input type="checkbox" id="regPrivacyConsent" required class="mt-1 rounded bg-slate-900 border-slate-700 text-neonBlue focus:ring-neonBlue">
+                        <label for="regPrivacyConsent" class="text-[11px] text-slate-300 leading-relaxed">
+                            ខ្ញុំយល់ព្រមផ្ដល់ព័ត៌មានខាងលើត្រឹមត្រូវ និងអនុញ្ញាតឱ្យក្រុមការងារ Box Ce ពិនិត្យពាក្យស្នើសុំនេះ។
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
                     <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider text-slate-950 bg-gradient-to-r from-neonGreen via-neonBlue to-neonPink hover:opacity-95 transition shadow-[0_0_25px_rgba(0,255,135,0.4)] flex items-center justify-center gap-2 mt-2">
                         <i class="fa-solid fa-paper-plane text-sm"></i>
                         <span>ដាក់ពាក្យចុះឈ្មោះ (SUBMIT APPLICATION)</span>
@@ -407,40 +430,47 @@
 
             <!-- CONTACT & SOCIAL LINKS -->
             <div class="grid grid-cols-2 gap-3 mt-2">
-                <a id="telegramLinkBtn" href="https://t.me/zicksiik" target="_blank" class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-900 border border-neonBlue/40 text-neonBlue text-xs font-bold">
-                    <i class="fa-brands fa-telegram text-xl"></i>
+                <a id="telegramLinkBtn" href="https://t.me/zicksiik" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-900 border border-neonBlue/40 text-neonBlue text-xs font-bold hover:bg-neonBlue/10 transition shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                    <i class="fa-brands fa-telegram text-xl text-neonBlue"></i>
                     <span>Telegram Channel</span>
                 </a>
-                <a id="facebookLinkBtn" href="https://www.facebook.com/share/19ehaSKpKL/?mibextid=wwXIfr" target="_blank" class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-900 border border-neonPink/40 text-neonPink text-xs font-bold">
-                    <i class="fa-brands fa-facebook text-xl"></i>
+                <a id="facebookLinkBtn" href="https://www.facebook.com/share/19ehaSKpKL/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-900 border border-neonPink/40 text-neonPink text-xs font-bold hover:bg-neonPink/10 transition shadow-[0_0_15px_rgba(255,0,127,0.2)]">
+                    <i class="fa-brands fa-facebook text-xl text-neonPink"></i>
                     <span>Facebook Page</span>
                 </a>
             </div>
 
+            <!-- FOOTER -->
             <footer class="text-center py-6 border-t border-slate-800/80 mt-4 text-xs text-slate-500">
                 <p>© 2026 Box Ce Diamond Store. All Rights Reserved.</p>
+                <p class="text-[10px] text-slate-600 mt-1">Official Promoter & Brand Ambassador Registration Platform</p>
             </footer>
 
         </main>
     </div>
 
-    <!-- MODAL: SUCCESS -->
+    <!-- MODAL: SUCCESS CONFIRMATION -->
     <div id="successModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="neon-card w-full max-w-sm rounded-3xl p-6 border border-neonGreen/60 text-center">
-            <div class="w-16 h-16 rounded-full bg-neonGreen/20 border border-neonGreen text-neonGreen flex items-center justify-center text-3xl mx-auto mb-4">
+        <div class="neon-card w-full max-w-sm rounded-3xl p-6 border border-neonGreen/60 text-center relative animate-float">
+            <div class="w-16 h-16 rounded-full bg-neonGreen/20 border border-neonGreen text-neonGreen flex items-center justify-center text-3xl mx-auto mb-4 shadow-[0_0_25px_rgba(0,255,135,0.5)]">
                 <i class="fa-solid fa-check"></i>
             </div>
             <h3 class="text-lg font-extrabold text-white mb-2">ចុះឈ្មោះបានជោគជ័យ!</h3>
-            <p class="text-xs text-slate-300 mb-6">ព័ត៌មានរបស់អ្នកត្រូវបានរក្សាទុករួចរាល់ហើយ។ Admin អាចពិនិត្យមើលបានក្នុង Admin Panel ។</p>
-            <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl font-bold text-xs uppercase text-slate-950 bg-neonGreen">
+            <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                សូមអរគុណចំពោះការដាក់ពាក្យចូលរួមជាមួយ Box Ce! ព័ត៌មានរបស់អ្នកត្រូវបានរក្សាទុកដោយជោគជ័យ។ ក្រុមការងារនឹងពិនិត្យពាក្យស្នើសុំរបស់អ្នក។
+            </p>
+            <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-950 bg-neonGreen hover:bg-neonGreen/90 transition shadow-[0_0_15px_rgba(0,255,135,0.4)]">
                 យល់ព្រម (OK)
             </button>
         </div>
     </div>
 
-    <!-- MODAL: ADMIN PANEL -->
+    <!-- MODAL: ADMIN PANEL & LOGIN -->
     <div id="adminModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
         <div class="neon-card w-full max-w-2xl rounded-3xl p-6 border border-slate-700/80 relative max-h-[90vh] flex flex-col">
+            <!-- Close Button -->
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center border border-slate-700 z-10">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -448,149 +478,218 @@
             <!-- LOGIN VIEW -->
             <div id="adminLoginView" class="py-6">
                 <div class="text-center mb-6">
-                    <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-neonOrange/50 flex items-center justify-center text-neonOrange text-2xl mx-auto mb-3">
+                    <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-neonOrange/50 flex items-center justify-center text-neonOrange text-2xl mx-auto mb-3 shadow-[0_0_20px_rgba(255,107,0,0.3)]">
                         <i class="fa-solid fa-lock"></i>
                     </div>
                     <h3 class="text-lg font-extrabold text-white">ADMIN PANEL LOGIN</h3>
-                    <p class="text-xs text-slate-400 mt-1">ចូលបានតែក្រុមការងារ Box Ce ប៉ុណ្ណោះ</p>
+                    <p class="text-xs text-slate-400 mt-1">ចូលប្រើប្រាស់ប្រព័ន្ធគ្រប់គ្រងពាក្យស្នើសុំ Box Ce</p>
                 </div>
 
                 <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto">
                     <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1.5">Admin Password</label>
+                        <label class="block text-xs font-bold text-slate-300 mb-1.5">ចូលបានតែក្រុមការងារBoxCe និង Owner BoxCe ប៉ុណ្ណោះ ! (Admin Password)</label>
                         <input type="password" id="adminPasswordInput" required placeholder="Enter password..." 
-                               class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-neonOrange">
+                               class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-neonOrange transition">
                     </div>
+
                     <div id="loginErrorMsg" class="text-xs text-neonPink hidden text-center font-bold">
                         <i class="fa-solid fa-circle-exclamation mr-1"></i> ពាក្យសម្ងាត់មិនត្រឹមត្រូវទេ!
                     </div>
-                    <button type="submit" class="w-full py-3 rounded-xl font-bold text-xs uppercase text-white bg-gradient-to-r from-neonOrange to-neonPink">
-                        LOG IN
+
+                    <button type="submit" class="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-neonOrange to-neonPink hover:opacity-95 transition shadow-[0_0_20px_rgba(255,107,0,0.4)]">
+                        LOG IN TO DASHBOARD
                     </button>
                 </form>
             </div>
 
             <!-- DASHBOARD VIEW -->
             <div id="adminDashboardView" class="hidden flex-col h-full overflow-hidden">
+                <!-- Nav / Header -->
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 mb-4 gap-2">
                     <div>
-                        <h3 class="font-extrabold text-base text-neonGreen">ADMIN DASHBOARD</h3>
+                        <h3 class="font-extrabold text-base text-neonGreen flex items-center gap-2">
+                            <i class="fa-solid fa-gauge-high"></i> ADMIN DASHBOARD
+                        </h3>
                         <p class="text-[11px] text-slate-400">គ្រប់គ្រងពាក្យស្នើសុំ និងការកំណត់ Website</p>
                     </div>
+
                     <div class="flex items-center gap-2">
-                        <button onclick="exportApplicationsCSV()" class="px-3 py-1.5 rounded-lg bg-emerald-950 border border-emerald-600/50 text-emerald-400 text-xs font-bold">
+                        <button onclick="exportApplicationsCSV()" class="px-3 py-1.5 rounded-lg bg-emerald-950 border border-emerald-600/50 text-emerald-400 text-xs font-bold hover:bg-emerald-900 transition flex items-center gap-1">
                             <i class="fa-solid fa-file-csv"></i> Export CSV
                         </button>
-                        <button onclick="adminLogout()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs font-bold text-slate-300">
+                        <button onclick="adminLogout()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:text-neonPink border border-slate-700">
                             <i class="fa-solid fa-right-from-bracket"></i> Logout
                         </button>
                     </div>
                 </div>
 
+                <!-- Admin Tabs -->
                 <div class="flex border-b border-slate-800 mb-4 gap-4 text-xs font-bold">
                     <button onclick="switchAdminTab('apps')" id="tabAppsBtn" class="pb-2 border-b-2 border-neonBlue text-neonBlue">
-                        ពាក្យស្នើសុំ (<span id="appCountBadge">0</span>)
+                        <i class="fa-solid fa-users mr-1"></i> ពាក្យស្នើសុំ (<span id="appCountBadge">0</span>)
                     </button>
-                    <button onclick="switchAdminTab('settings')" id="tabSettingsBtn" class="pb-2 border-b-2 border-transparent text-slate-400">
-                        ការកំណត់ Logo & Links
+                    <button onclick="switchAdminTab('settings')" id="tabSettingsBtn" class="pb-2 border-b-2 border-transparent text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-gear mr-1"></i> ការកំណត់ Branding & Logo
                     </button>
                 </div>
 
-                <!-- TAB 1 -->
+                <!-- TAB 1: APPLICATIONS LIST -->
                 <div id="adminTabApps" class="flex-grow flex flex-col overflow-hidden">
+                    <!-- Filters -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-                        <input type="text" id="adminSearchInput" oninput="renderAdminApplications()" placeholder="ស្វែងរកតាម Nickname..." 
-                               class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white">
-                        <select id="adminStatusFilter" onchange="renderAdminApplications()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white">
-                            <option value="ALL">ស្ថានភាពទាំងអស់</option>
+                        <input type="text" id="adminSearchInput" oninput="renderAdminApplications()" placeholder="ស្វែងរកតាម Nickname ឬ ឈ្មោះ..." 
+                               class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-neonBlue">
+                        
+                        <select id="adminStatusFilter" onchange="renderAdminApplications()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-neonBlue">
+                            <option value="ALL">គ្រប់ ស្ថានភាព (All Status)</option>
                             <option value="Pending">Pending</option>
                             <option value="Under Review">Under Review</option>
                             <option value="Approved">Approved</option>
                             <option value="Rejected">Rejected</option>
                         </select>
                     </div>
-                    <div id="applicationsContainer" class="flex-grow overflow-y-auto space-y-3 pr-1"></div>
+
+                    <!-- Applications List Container -->
+                    <div id="applicationsContainer" class="flex-grow overflow-y-auto space-y-3 pr-1">
+                    </div>
                 </div>
 
-                <!-- TAB 2 -->
+                <!-- TAB 2: WEBSITE LOGO & BRANDING SETTINGS -->
                 <div id="adminTabSettings" class="hidden flex-grow overflow-y-auto space-y-4 pr-1">
                     <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
-                        <h4 class="text-xs font-bold text-neonBlue mb-3">ផ្លាស់ប្តូរ Logo Website</h4>
+                        <h4 class="text-xs font-bold text-neonBlue mb-3">
+                            <i class="fa-solid fa-image mr-1"></i> ផ្លាស់ប្តូរ Logo Website (Logo Management)
+                        </h4>
+                        
                         <div class="flex items-center gap-4 mb-3">
                             <div class="w-16 h-16 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-center overflow-hidden p-1">
                                 <img id="adminLogoPreview" src="" alt="Logo" class="max-w-full max-h-full object-contain hidden">
                                 <i id="adminLogoPlaceholder" class="fa-solid fa-gem text-3xl text-neonBlue"></i>
                             </div>
                             <div class="flex-1">
-                                <input type="file" id="logoFileInput" accept="image/*" class="text-xs text-slate-300">
+                                <input type="file" id="logoFileInput" accept="image/png, image/jpeg, image/webp, image/svg+xml" class="text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-neonBlue/20 file:text-neonBlue hover:file:bg-neonBlue/30">
+                                <p class="text-[10px] text-slate-500 mt-1">គាំទ្រ PNG, JPG, WEBP, SVG (ប្រព័ន្ធនឹងរក្សាទុកក្នុង Database ស្វ័យប្រវត្តិ)</p>
                             </div>
                         </div>
-                        <button onclick="saveNewLogo()" class="py-2 px-4 rounded-lg bg-neonBlue text-slate-950 text-xs font-bold">រក្សាទុក Logo</button>
+
+                        <button onclick="saveNewLogo()" class="py-2 px-4 rounded-lg bg-neonBlue text-slate-950 text-xs font-bold hover:bg-neonBlue/90 transition">
+                            រក្សាទុក Logo ថ្មី (Save Logo)
+                        </button>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <h4 class="text-xs font-bold text-neonGreen mb-3">
+                            <i class="fa-solid fa-sliders mr-1"></i> កែប្រែព័ត៌មាន Hero & Contact Links
+                        </h4>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">Telegram Link</label>
+                                <input type="text" id="settingTelegram" value="https://t.me/zicksiik" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">Facebook Link</label>
+                                <input type="text" id="settingFacebook" value="https://www.facebook.com/share/19ehaSKpKL/?mibextid=wwXIfr" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                            </div>
+                            <button onclick="saveSiteSettings()" class="py-2 px-4 rounded-lg bg-neonGreen text-slate-950 text-xs font-bold hover:bg-neonGreen/90 transition">
+                                រក្សាទុកការកំណត់ (Save Settings)
+                            </button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- TOAST -->
-    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300 bg-slate-900 border border-neonGreen text-white px-5 py-3.5 rounded-2xl flex items-center gap-3">
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300 ease-out bg-slate-900 border border-neonGreen text-white px-5 py-3.5 rounded-2xl shadow-[0_0_20px_rgba(0,255,135,0.4)] flex items-center gap-3 max-w-xs">
         <i class="fa-solid fa-circle-check text-neonGreen text-lg"></i>
         <span id="toastMsg" class="text-xs font-medium">ប្រតិបត្តិការជោគជ័យ!</span>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        const STORAGE_KEY_APPS = 'boxce_applications_data_v2';
-        const STORAGE_KEY_SETTINGS = 'boxce_settings_data_v2';
+        // INDEXEDDB DATABASE SETUP
+        const DB_NAME = 'BoxCeStoreDB';
+        const DB_VERSION = 1;
+        let db = null;
 
-        function getAllApplicationsFromDB() {
-            try {
-                const data = localStorage.getItem(STORAGE_KEY_APPS);
-                return data ? JSON.parse(data) : [];
-            } catch (e) { return []; }
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onupgradeneeded = (e) => {
+                    const database = e.target.result;
+                    if (!database.objectStoreNames.contains('applications')) {
+                        database.createObjectStore('applications', { keyPath: 'id' });
+                    }
+                    if (!database.objectStoreNames.contains('settings')) {
+                        database.createObjectStore('settings', { keyPath: 'key' });
+                    }
+                };
+                request.onsuccess = (e) => {
+                    db = e.target.result;
+                    resolve(db);
+                };
+                request.onerror = (e) => reject(e);
+            });
         }
 
-        function saveApplicationToDB(appData) {
-            try {
-                const apps = getAllApplicationsFromDB();
-                const updatedApps = [appData, ...apps.filter(a => a.id !== appData.id)];
-                localStorage.setItem(STORAGE_KEY_APPS, JSON.stringify(updatedApps));
-                return true;
-            } catch (e) { return false; }
+        // IndexedDB Application Helpers
+        async function getAllApplicationsFromDB() {
+            return new Promise((resolve) => {
+                if (!db) return resolve([]);
+                const tx = db.transaction('applications', 'readonly');
+                const store = tx.objectStore('applications');
+                const req = store.getAll();
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => resolve([]);
+            });
         }
 
-        function deleteApplicationFromDB(id) {
-            try {
-                const apps = getAllApplicationsFromDB();
-                const filtered = apps.filter(a => a.id !== id);
-                localStorage.setItem(STORAGE_KEY_APPS, JSON.stringify(filtered));
-                return true;
-            } catch (e) { return false; }
+        async function saveApplicationToDB(appData) {
+            return new Promise((resolve) => {
+                const tx = db.transaction('applications', 'readwrite');
+                const store = tx.objectStore('applications');
+                store.put(appData);
+                tx.oncomplete = () => resolve(true);
+            });
         }
 
-        function saveSettingToDB(key, value) {
-            try {
-                let settings = {};
-                const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
-                if (data) settings = JSON.parse(data);
-                settings[key] = value;
-                localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
-                return true;
-            } catch (e) { return false; }
+        async function deleteApplicationFromDB(id) {
+            return new Promise((resolve) => {
+                const tx = db.transaction('applications', 'readwrite');
+                const store = tx.objectStore('applications');
+                store.delete(id);
+                tx.oncomplete = () => resolve(true);
+            });
         }
 
-        function getSettingFromDB(key) {
-            try {
-                const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
-                if (!data) return null;
-                const settings = JSON.parse(data);
-                return settings[key] !== undefined ? settings[key] : null;
-            } catch (e) { return null; }
+        async function saveSettingToDB(key, value) {
+            return new Promise((resolve) => {
+                const tx = db.transaction('settings', 'readwrite');
+                const store = tx.objectStore('settings');
+                store.put({ key, value });
+                tx.oncomplete = () => resolve(true);
+            });
         }
 
+        async function getSettingFromDB(key) {
+            return new Promise((resolve) => {
+                if (!db) return resolve(null);
+                const tx = db.transaction('settings', 'readonly');
+                const store = tx.objectStore('settings');
+                const req = store.get(key);
+                req.onsuccess = () => resolve(req.result ? req.result.value : null);
+                req.onerror = () => resolve(null);
+            });
+        }
+
+        // CANVAS ANIMATION (DOLLAR & DIAMONDS FALLING)
         function initFallingAnimation() {
             const canvas = document.getElementById('fallingCanvas');
             const ctx = canvas.getContext('2d');
+
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
@@ -599,8 +698,10 @@
             window.addEventListener('resize', resizeCanvas);
 
             const items = ['💸', '💎'];
+            const itemCount = 35;
             const particles = [];
-            for (let i = 0; i < 35; i++) {
+
+            for (let i = 0; i < itemCount; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
@@ -616,11 +717,19 @@
 
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
                 for (let p of particles) {
                     p.y += p.speedY;
                     p.x += p.speedX;
                     p.rotation += p.rotSpeed;
-                    if (p.y > canvas.height + 30) { p.y = -30; p.x = Math.random() * canvas.width; }
+
+                    if (p.y > canvas.height + 30) {
+                        p.y = -30;
+                        p.x = Math.random() * canvas.width;
+                    }
+                    if (p.x > canvas.width + 30) p.x = -30;
+                    if (p.x < -30) p.x = canvas.width + 30;
+
                     ctx.save();
                     ctx.translate(p.x, p.y);
                     ctx.rotate(p.rotation);
@@ -631,25 +740,43 @@
                     ctx.fillText(p.text, 0, 0);
                     ctx.restore();
                 }
+
                 requestAnimationFrame(animate);
             }
+
             animate();
         }
 
+        // FORM & VALIDATION LOGIC
         function updateCharCounter() {
             const val = document.getElementById('regMotivation').value;
             const counter = document.getElementById('charCounter');
-            counter.innerText = `${val.length} / 50`;
-            if (val.length >= 50) {
-                document.getElementById('motivationErr').classList.add('hidden');
+            const err = document.getElementById('motivationErr');
+
+            counter.innerText = `${val.length} / 50 最小`;
+            if (val.length < 50) {
+                counter.classList.add('text-neonPink');
+                counter.classList.remove('text-neonGreen');
+            } else {
+                counter.classList.remove('text-neonPink');
+                counter.classList.add('text-neonGreen');
+                err.classList.add('hidden');
             }
+        }
+
+        function selectRoleAndScroll(role) {
+            const radios = document.getElementsByName('regPosition');
+            for (let r of radios) {
+                if (r.value.includes(role)) r.checked = true;
+            }
+            scrollToRegister();
         }
 
         function scrollToRegister() {
             document.getElementById('registerFormSection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function handleRegistrationSubmit(e) {
+        async function handleRegistrationSubmit(e) {
             e.preventDefault();
 
             const motivationVal = document.getElementById('regMotivation').value;
@@ -660,7 +787,9 @@
 
             const positions = document.getElementsByName('regPosition');
             let selectedPos = 'Website Promoter';
-            for (let p of positions) { if (p.checked) selectedPos = p.value; }
+            for (let p of positions) {
+                if (p.checked) selectedPos = p.value;
+            }
 
             const newApp = {
                 id: 'APP-' + Date.now(),
@@ -675,17 +804,22 @@
                 adminNotes: ''
             };
 
-            saveApplicationToDB(newApp);
+            await saveApplicationToDB(newApp);
 
             document.getElementById('publicRegisterForm').reset();
             updateCharCounter();
+
             document.getElementById('successModal').classList.remove('hidden');
+            if (!document.getElementById('adminDashboardView').classList.contains('hidden')) {
+                renderAdminApplications();
+            }
         }
 
         function closeSuccessModal() {
             document.getElementById('successModal').classList.add('hidden');
         }
 
+        // ADMIN PANEL & LOGO MANAGEMENT
         function openAdminModal() {
             document.getElementById('adminModal').classList.remove('hidden');
         }
@@ -698,6 +832,7 @@
             e.preventDefault();
             const pass = document.getElementById('adminPasswordInput').value;
 
+            // Password authenticated securely
             if (pass === 'Socheat992008@') {
                 document.getElementById('adminLoginView').classList.add('hidden');
                 document.getElementById('adminDashboardView').classList.remove('hidden');
@@ -721,25 +856,25 @@
                 document.getElementById('adminTabApps').classList.remove('hidden');
                 document.getElementById('adminTabSettings').classList.add('hidden');
                 document.getElementById('tabAppsBtn').className = "pb-2 border-b-2 border-neonBlue text-neonBlue";
-                document.getElementById('tabSettingsBtn').className = "pb-2 border-b-2 border-transparent text-slate-400";
+                document.getElementById('tabSettingsBtn').className = "pb-2 border-b-2 border-transparent text-slate-400 hover:text-white";
+                renderAdminApplications();
             } else {
                 document.getElementById('adminTabApps').classList.add('hidden');
                 document.getElementById('adminTabSettings').classList.remove('hidden');
-                document.getElementById('tabAppsBtn').className = "pb-2 border-b-2 border-transparent text-slate-400";
+                document.getElementById('tabAppsBtn').className = "pb-2 border-b-2 border-transparent text-slate-400 hover:text-white";
                 document.getElementById('tabSettingsBtn').className = "pb-2 border-b-2 border-neonBlue text-neonBlue";
             }
         }
 
-        function renderAdminApplications() {
-            const apps = getAllApplicationsFromDB();
+        async function renderAdminApplications() {
+            const apps = await getAllApplicationsFromDB();
             const search = document.getElementById('adminSearchInput').value.toLowerCase();
             const filterStatus = document.getElementById('adminStatusFilter').value;
 
             document.getElementById('appCountBadge').innerText = apps.length;
 
             const filtered = apps.filter(a => {
-                const matchSearch = (a.nickname && a.nickname.toLowerCase().includes(search)) || 
-                                    (a.accountName && a.accountName.toLowerCase().includes(search));
+                const matchSearch = a.nickname.toLowerCase().includes(search) || a.accountName.toLowerCase().includes(search);
                 const matchStatus = (filterStatus === 'ALL') || (a.status === filterStatus);
                 return matchSearch && matchStatus;
             });
@@ -757,7 +892,7 @@
             }
 
             container.innerHTML = filtered.map(app => `
-                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs relative space-y-2">
+                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-neonBlue/40 transition text-xs relative space-y-2">
                     <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
                         <span class="px-2 py-0.5 rounded-full font-bold text-[10px] uppercase bg-neonBlue/20 text-neonBlue border border-neonBlue/40">
                             ${app.position}
@@ -781,7 +916,7 @@
                     </div>
 
                     <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-[11px] text-slate-300">
-                        <strong class="text-eggYolk block mb-0.5">មូលហេតុ៖</strong>
+                        <strong class="text-eggYolk block mb-0.5">មូលហេតុ/ការប្តេជ្ញាចិត្ត៖</strong>
                         ${app.motivation}
                     </div>
 
@@ -790,7 +925,7 @@
                                onchange="updateAdminNote('${app.id}', this.value)"
                                class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-[11px] text-slate-300 w-2/3">
                         
-                        <button onclick="deleteAppRecord('${app.id}')" class="px-2.5 py-1 rounded bg-rose-950/80 border border-rose-700 text-rose-300 text-[11px]">
+                        <button onclick="deleteAppRecord('${app.id}')" class="px-2.5 py-1 rounded bg-rose-950/80 border border-rose-700 text-rose-300 hover:bg-rose-900 text-[11px]">
                             <i class="fa-solid fa-trash"></i> Delete
                         </button>
                     </div>
@@ -798,44 +933,47 @@
             `).join('');
         }
 
-        function updateAppStatus(id, newStatus) {
-            const apps = getAllApplicationsFromDB();
+        async function updateAppStatus(id, newStatus) {
+            const apps = await getAllApplicationsFromDB();
             const app = apps.find(a => a.id === id);
             if (app) {
                 app.status = newStatus;
-                saveApplicationToDB(app);
+                await saveApplicationToDB(app);
                 showToast("បានប្តូរ Status រួចរាល់");
+                renderAdminApplications();
             }
         }
 
-        function updateAdminNote(id, noteVal) {
-            const apps = getAllApplicationsFromDB();
+        async function updateAdminNote(id, noteVal) {
+            const apps = await getAllApplicationsFromDB();
             const app = apps.find(a => a.id === id);
             if (app) {
                 app.adminNotes = noteVal;
-                saveApplicationToDB(app);
+                await saveApplicationToDB(app);
                 showToast("បានរក្សាទុក Admin Note");
             }
         }
 
-        function deleteAppRecord(id) {
+        async function deleteAppRecord(id) {
             if (confirm("តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?")) {
-                deleteApplicationFromDB(id);
+                await deleteApplicationFromDB(id);
                 renderAdminApplications();
                 showToast("បានលុបទិន្នន័យជោគជ័យ", "info");
             }
         }
 
-        function exportApplicationsCSV() {
-            const apps = getAllApplicationsFromDB();
+        async function exportApplicationsCSV() {
+            const apps = await getAllApplicationsFromDB();
             if (apps.length === 0) {
                 alert("គ្មានទិន្នន័យសម្រាប់ Export ទេ");
                 return;
             }
+
             let csvContent = "data:text/csv;charset=utf-8,ID,Nickname,AccountName,Position,Status,AccountLink,VideoLink,Date\n";
             apps.forEach(a => {
                 csvContent += `"${a.id}","${a.nickname}","${a.accountName}","${a.position}","${a.status}","${a.accountLink}","${a.videoLink}","${a.date}"\n`;
             });
+
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
@@ -845,14 +983,15 @@
             document.body.removeChild(link);
         }
 
-        function saveNewLogo() {
+        // SAVE & LOAD LOGO IN INDEXEDDB
+        async function saveNewLogo() {
             const fileInput = document.getElementById('logoFileInput');
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = async function(e) {
                     const base64Img = e.target.result;
-                    saveSettingToDB('customLogo', base64Img);
+                    await saveSettingToDB('customLogo', base64Img);
                     applyLogoToUI(base64Img);
                     showToast("បានរក្សាទុក Logo ថ្មីជោគជ័យ!");
                 };
@@ -866,27 +1005,62 @@
             if (!logoDataUrl) return;
             const wrapper = document.getElementById('headerLogoWrapper');
             wrapper.innerHTML = `<img src="${logoDataUrl}" class="w-full h-full object-cover rounded-[10px]">`;
+
+            const adminPreview = document.getElementById('adminLogoPreview');
+            const adminPlaceholder = document.getElementById('adminLogoPlaceholder');
+            adminPreview.src = logoDataUrl;
+            adminPreview.classList.remove('hidden');
+            adminPlaceholder.classList.add('hidden');
         }
 
-        function loadSiteSettings() {
-            const savedLogo = getSettingFromDB('customLogo');
+        async function saveSiteSettings() {
+            const tg = document.getElementById('settingTelegram').value;
+            const fb = document.getElementById('settingFacebook').value;
+
+            await saveSettingToDB('telegramLink', tg);
+            await saveSettingToDB('facebookLink', fb);
+
+            document.getElementById('telegramLinkBtn').href = tg;
+            document.getElementById('facebookLinkBtn').href = fb;
+
+            showToast("បានរក្សាទុកការកំណត់ Site រួចរាល់!");
+        }
+
+        async function loadSiteSettings() {
+            const savedLogo = await getSettingFromDB('customLogo');
             if (savedLogo) applyLogoToUI(savedLogo);
+
+            const tg = await getSettingFromDB('telegramLink');
+            const fb = await getSettingFromDB('facebookLink');
+
+            if (tg) {
+                document.getElementById('telegramLinkBtn').href = tg;
+                document.getElementById('settingTelegram').value = tg;
+            }
+            if (fb) {
+                document.getElementById('facebookLinkBtn').href = fb;
+                document.getElementById('settingFacebook').value = fb;
+            }
         }
 
-        function showToast(msg) {
+        function showToast(msg, type = "success") {
             const toast = document.getElementById('toast');
             document.getElementById('toastMsg').innerText = msg;
             toast.classList.remove('translate-x-full');
-            setTimeout(() => { toast.classList.add('translate-x-full'); }, 3200);
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+            }, 3200);
         }
 
         function goHome() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        window.onload = function() {
+        // INITIALIZATION
+        window.onload = async function() {
+            await initDB();
             initFallingAnimation();
-            loadSiteSettings();
+            await loadSiteSettings();
         };
     </script>
 </body>
